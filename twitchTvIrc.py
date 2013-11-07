@@ -34,6 +34,9 @@ class TwitchTvIrcApi:
 		logging = threading.Thread(target=logger).start()
 
 	def connect(self):
+		"""
+		Connect to TwitchTV IRC
+		"""
 		self.ircSocket.connect(('irc.twitch.tv', 6667))
 		return True
 
