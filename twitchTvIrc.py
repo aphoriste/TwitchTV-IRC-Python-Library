@@ -88,6 +88,6 @@ class TwitchTvIrcApi:
 		params=payload).text)
 		return jsonData['access_token']
 
-		def print(self, data):
-			if self.silence != False:
-				print(data)
+	def print(self, data):
+		if self.silence != False:
+			print(data)
