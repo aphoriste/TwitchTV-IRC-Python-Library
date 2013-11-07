@@ -87,3 +87,7 @@ class TwitchTvIrcApi:
 		jsonData = json.loads(requests.post('https://api.twitch.tv/kraken/oauth2/token', \
 		params=payload).text)
 		return jsonData['access_token']
+
+		def print(self, data):
+			if self.silence != False:
+				print(data)
