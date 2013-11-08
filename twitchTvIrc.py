@@ -62,6 +62,29 @@ class TwitchTvIrcApi:
 		self.ircSocket.send('PRIVMSG %s :%s\n' % (channel.lower(), message))
 		return True
 
+	def ban(self, channel, user):
+		"""
+		Ban a user from a channel.
+		"""
+		self.privmsg(channel, '.ban %s' % user)
+		return True
+
+	def unban(self, channel, user):
+		"""
+		Unban a user from a channel.
+		"""
+
+		self.privmsg(channel, '.unban %s' % user)
+		return True
+
+	def timeout(self, channel, user):
+		"""
+		Timeout a user in a channel.
+		"""
+
+		self.privmsg(channel, '.timeout %s' % user)
+		return True
+
 	def messageReceived(self, splitData, data):
 		"""
 		Do this when receive a message in a channel
