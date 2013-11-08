@@ -10,7 +10,6 @@ import simplejson as json
 
 class TwitchTvIrcApi:
 	def __init__(self, silence=False):
-		self.silence = False
 		self.ircSocket = socket.socket()
 		def logger(socket=self.ircSocket):
 			while True:
@@ -21,14 +20,14 @@ class TwitchTvIrcApi:
 
 						if 'PING' in splitData[0]:
 							self.ircSocket.send('PONG %s' % splitData[1])
-							print('Received PING, sent PONG')
+							self.log('Received PING, sent PONG')
 						
 						elif 'PRIVMSG' in splitData[1]:
 							self.messageReceived(splitData, data)
 						
- 						else: print(data)
+ 						else: self.log(data, silence)
 					else:
-						print(data)		
+						self.log(data, silence)		
 				except:
 					pass
 		logging = threading.Thread(target=logger).start()
@@ -70,7 +69,7 @@ class TwitchTvIrcApi:
 		username = splitData[0].split('@')[0].split('!')[1]
 		message = data.split(':')[2]
 		channel = data.split('#')[1].split()[0]
-		print('<%s to #%s>: %s' % (username, channel, message))
+		self.log('<%s to #%s>: %s' % (username, channel, message))
 		return True
 
 	def generateOAuth(self, client_id, client_secret, username, password):
@@ -91,6 +90,6 @@ class TwitchTvIrcApi:
 		params=payload).text)
 		return jsonData['access_token']
 
-	def print(self, data):
-		if self.silence != False:
-			print(data)
+	def log(self, data, silence):
+		if silence != True:
+			print data
